@@ -4,7 +4,7 @@ program main
   implicit none
   integer :: i, istep, nwrite
 
-  nwrite = 10
+  nwrite = 50
   
   call init()
 
@@ -16,6 +16,13 @@ program main
 
   call force(1)
   print *, "energia total", Vtot
+
+  print *, "fuerzas"
+
+  do i=1, N
+    print *, f(:,i)
+  end do
+
 
   do istep = 1, nstep
     r = r + f * (dt**2/(2*m))
@@ -34,6 +41,12 @@ program main
     print *, r(:,i)
   end do
 
+  
+  print *, "fuerzas"
+
+  do i=1, N
+    print *, f(:,i)
+  end do
   ! loop de minimizacion: minimizo energia sin usar las velocidades
   ! Loop de MD posta
 
