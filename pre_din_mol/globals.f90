@@ -3,6 +3,6 @@ module globals
 
   real(8), allocatable :: r(:,:), v(:,:), f(:,:)
   real(8) :: L, Vtot, T, rc2, Vrc, sigma, eps, m, dt
-  integer :: N, nstep, seed
+  integer :: N, nstep, seed, nwrite
 
 end module globals

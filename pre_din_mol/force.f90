@@ -8,9 +8,7 @@ subroutine force(mode)
 
   select case(mode)
   case(0)
-    m = 1.0
-    sigma = 1.0
-    eps = 1.0
+    
     rc2 = (2.5*sigma)**2
     temp = sigma**6/rc2**3
     Vrc = 4*eps*temp*(temp-1)

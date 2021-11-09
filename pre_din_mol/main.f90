@@ -2,9 +2,7 @@ program main
   use globals
   use ziggurat
   implicit none
-  integer :: i, istep, nwrite
-
-  nwrite = 50
+  integer :: i, istep
   
   call init()
 
@@ -15,7 +13,7 @@ program main
   end do
 
   call force(1)
-  print *, "energia total", Vtot
+  print *, "energia potencial total", Vtot
 
   print *, "fuerzas"
 
@@ -23,14 +21,16 @@ program main
     print *, f(:,i)
   end do
 
+  ! Hacemos un paso de minimizacion de energia, para evitar tener particulas muy cerca
+  r = r + f * (dt**2/(2*m))
+  r = modulo(r, L)
+  call force(1)
 
   do istep = 1, nstep
-    r = r + f * (dt**2/(2*m))
-    r = modulo(r, L)
-    call force(1)
-    
+    call verlet()
+
     if(mod(istep,nwrite)==0) then
-      print *, "energia total", Vtot
+      print *, "energia potencial total", Vtot
       call write_conf(1)
     end if
   end do
@@ -47,6 +47,9 @@ program main
   do i=1, N
     print *, f(:,i)
   end do
+  
+  
+  
   ! loop de minimizacion: minimizo energia sin usar las velocidades
   ! Loop de MD posta
 

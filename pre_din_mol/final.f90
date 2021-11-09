@@ -5,6 +5,9 @@ subroutine final()
 
     integer :: i, j
   
+    ! Cerrar el archivo de configuraciones
+    call write_conf(2)
+
     ! ! Guardar la ultima configuracion en un archivo
     ! open(unit=12,file='configuracion.dat',action='write',status='replace')
       
@@ -14,8 +17,6 @@ subroutine final()
  
     ! close(12) 
   
-    call write_conf(2)
-    
 ! Escribir la última semilla para continuar con la cadena de numeros aleatorios 
     open(unit=10,file='seed.dat',status='unknown')
     seed = shr3() 
