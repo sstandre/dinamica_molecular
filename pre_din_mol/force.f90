@@ -12,7 +12,6 @@ subroutine force(mode)
     rc2 = (2.5*sigma)**2
     temp = sigma**6/rc2**3
     Vrc = 4*eps*temp*(temp-1)
-    print *, "potencial de corte", Vrc
 
   case(1)
     
