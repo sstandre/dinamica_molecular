@@ -6,6 +6,6 @@ subroutine verlet
     r = modulo(r, L)
     v = v + f * (dt/(2*m))
     call force(1)
-    v = v + f /(2*m)
+    v = v + f *(dt/(2*m))
 
 end subroutine
