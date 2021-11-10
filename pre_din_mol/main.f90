@@ -4,19 +4,16 @@ program main
   implicit none
   integer :: i, istep
   
+  ! Inicializo posiciones y velocidades y calculo el potencial y las fuerzas
   call init()
+  call force(1)
 
   print *, "posiciones"
-
   do i=1, N
     print *, r(:,i)
   end do
 
-  call force(1)
-  
-
   print *, "velocidades"
-
   do i=1, N
     print *, v(:,i)
   end do
@@ -25,6 +22,8 @@ program main
   r = r + f * (dt**2/(2*m))
   r = modulo(r, L)
   call force(1)
+
+  ! Calculo inicial de energia
   print *, "energia potencial", Vtot
   Ecin = sum(v*v)/(2*m)
   print *, "energia cinetica", Ecin
@@ -32,6 +31,7 @@ program main
 
 
   do istep = 1, nstep
+    ! Las nuevas posiciones y velocidades se calculan mediante Verlet
     call verlet()
 
     if(mod(istep,nwrite)==0) then
@@ -41,47 +41,21 @@ program main
       print *, "energia total", Vtot+Ecin
 
       call write_conf(1)
+
     end if
   end do
 
   print *, "posiciones"
-
   do i=1, N
     print *, r(:,i)
   end do
 
-  
   print *, "fuerzas"
-
   do i=1, N
     print *, f(:,i)
   end do
-  
-  
-  
-  ! loop de minimizacion: minimizo energia sin usar las velocidades
-  ! Loop de MD posta
 
-  
-
-  ! checklist
-  ! -calculo bien V
-  ! -calculo bien F
-  ! -esta bien verlet
-  ! - se conserva la energia
-  
-
-  ! Loop de MD posta
-! ! do istep=1,Nsteps
-!   call verlet_posit
-!   force(:,:)=
-!   call force()
-!   call verlet_veloc()
-!   todas las dinamicas actualizadas
-!   call mide() E = suma cinetacica + potencial
-!   call write_E_t -> istep *dt = tiempo
-
-
+  ! Rutina de finalizacion para cerrar archivos, etc
    call final()
 
 end program main

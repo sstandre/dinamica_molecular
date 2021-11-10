@@ -1,9 +1,9 @@
 100     N     (atoms)
 10.0    L     (box size)
 1.5     Temperature
-0.0001     dt    (timestep)
+0.001     dt    (timestep)
 20000    nstep 
 1.0     epsilon
 1.0     sigma
 1.0     mass
-100      nwrite
+200      nwrite

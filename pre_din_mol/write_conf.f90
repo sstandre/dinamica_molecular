@@ -6,18 +6,18 @@ subroutine write_conf(mode)
 
 
     select case(mode)
-    case(0)
+    case(0)  ! Abrir archivo y escribir header
         open(unit=20, file='movie.vtf', status='unknown')
         write(20, *) 'atom 0:',N-1, 'radius 0.5 name Ar'
 
-    case(1)
+    case(1)  ! Escribir un frame de la animacion
         write(20, *) "timestep"
         write(20, *)
         do i=1,N
             write(20, *) r(:,i)
         end do
 
-    case(2)
+    case(2)  ! Cerrar archivo
         close(20)
 
     end select
