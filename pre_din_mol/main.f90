@@ -13,7 +13,7 @@ program main
   end do
 
   call force(1)
-  print *, "energia potencial total", Vtot
+  
 
   print *, "velocidades"
 
@@ -25,12 +25,21 @@ program main
   r = r + f * (dt**2/(2*m))
   r = modulo(r, L)
   call force(1)
+  print *, "energia potencial", Vtot
+  Ecin = sum(v*v)/(2*m)
+  print *, "energia cinetica", Ecin
+  print *, "energia total", Vtot+Ecin
+
 
   do istep = 1, nstep
     call verlet()
 
     if(mod(istep,nwrite)==0) then
-      print *, "energia potencial total", Vtot
+      ! print *, "energia potencial", Vtot
+      Ecin = sum(v*v)/(2*m)
+      ! print *, "energia cinetica", Ecin
+      print *, "energia total", Vtot+Ecin
+
       call write_conf(1)
     end if
   end do
