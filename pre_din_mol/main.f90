@@ -15,10 +15,10 @@ program main
   call force(1)
   print *, "energia potencial total", Vtot
 
-  print *, "fuerzas"
+  print *, "velocidades"
 
   do i=1, N
-    print *, f(:,i)
+    print *, v(:,i)
   end do
 
   ! Hacemos un paso de minimizacion de energia, para evitar tener particulas muy cerca

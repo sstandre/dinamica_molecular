@@ -8,7 +8,7 @@ subroutine write_conf(mode)
     select case(mode)
     case(0)
         open(unit=20, file='movie.vtf', status='unknown')
-        write(20, *) 'atom :',N-1, 'radius 0.5 name Ar'
+        write(20, *) 'atom 0:',N-1, 'radius 0.5 name Ar'
 
     case(1)
         write(20, *) "timestep"
