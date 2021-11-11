@@ -22,13 +22,16 @@ program main
     call force(1)
   end do
 
+  print *, '**************************************************************************'
   ! Calculo inicial de energia
   Ecin = sum(v*v)/(2*m)
   print *, "energia"
   print *, "  potencial                 cinetica                  total"
   print *, Vtot, Ecin, Vtot+Ecin
+  print *, '--------------------------------------------------------------------------'
 
-  print *, '*****************************************************************'
+  open(unit=15,file='output.dat',status='unknown')
+  write(15, *) "Potencial   Cinetica    Total"
   do istep = 1, nstep
     ! Las nuevas posiciones y velocidades se calculan mediante Verlet
     call verlet()
@@ -36,11 +39,13 @@ program main
     if(mod(istep,nwrite)==0) then
       Ecin = sum(v*v)/(2*m)
       print *, Vtot, Ecin, Vtot+Ecin
+      write(15, *) Vtot, Ecin, Vtot+Ecin
       call write_conf(1)
     end if
   end do
-  print *, '*****************************************************************'
-  
+  print *, '**************************************************************************'
+  close(15)
+
   ! print *, "posiciones"
   ! do i=1, N
   !   print *, r(:,i)
