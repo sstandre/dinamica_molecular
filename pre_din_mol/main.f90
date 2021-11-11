@@ -8,52 +8,43 @@ program main
   call init()
   call force(1)
 
-  print *, "posiciones"
-  do i=1, N
-    print *, r(:,i)
-  end do
+  ! print *, "posiciones"
+  ! do i=1, N
+  !   print *, r(:,i)
+  ! end do
 
-  print *, "velocidades"
-  do i=1, N
-    print *, v(:,i)
+  print *, "velocidad cuadratica media", sum(v*v)/(N)
+  
+  ! Hacemos unos pasos de minimizacion de energia, para evitar tener particulas muy cerca
+  do i=1,10
+    r = r + f * (dt**2/(2*m))
+    r = modulo(r, L)
+    call force(1)
   end do
-
-  ! Hacemos un paso de minimizacion de energia, para evitar tener particulas muy cerca
-  r = r + f * (dt**2/(2*m))
-  r = modulo(r, L)
-  call force(1)
 
   ! Calculo inicial de energia
-  print *, "energia potencial", Vtot
   Ecin = sum(v*v)/(2*m)
-  print *, "energia cinetica", Ecin
-  print *, "energia total", Vtot+Ecin
+  print *, "energia"
+  print *, "  potencial                 cinetica                  total"
+  print *, Vtot, Ecin, Vtot+Ecin
 
-
+  print *, '*****************************************************************'
   do istep = 1, nstep
     ! Las nuevas posiciones y velocidades se calculan mediante Verlet
     call verlet()
 
     if(mod(istep,nwrite)==0) then
-      ! print *, "energia potencial", Vtot
       Ecin = sum(v*v)/(2*m)
-      ! print *, "energia cinetica", Ecin
-      print *, "energia total", Vtot+Ecin
-
+      print *, Vtot, Ecin, Vtot+Ecin
       call write_conf(1)
-
     end if
   end do
-
-  print *, "posiciones"
-  do i=1, N
-    print *, r(:,i)
-  end do
-
-  print *, "fuerzas"
-  do i=1, N
-    print *, f(:,i)
-  end do
+  print *, '*****************************************************************'
+  
+  ! print *, "posiciones"
+  ! do i=1, N
+  !   print *, r(:,i)
+  ! end do
 
   ! Rutina de finalizacion para cerrar archivos, etc
    call final()
