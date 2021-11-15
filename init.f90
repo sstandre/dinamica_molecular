@@ -33,6 +33,7 @@ subroutine init()
   read(11,*) sigma, text
   read(11,*) m, text
   read(11,*) nwrite, text
+  read(11,*) vb, text
   close(11)
 
   T = T * eps
@@ -45,7 +46,7 @@ subroutine init()
 ! Chequear si existe configuracion.dat, y cargarla como configuracion inicial
   inquire(file='configuracion.dat',exist=ms)
   if(ms) then
-    print *,"  * Leyendo configuracion inicial de configuracion.dat"
+    if (vb) print *,"  * Leyendo configuracion inicial de configuracion.dat"
     open(unit=12,file='configuracion.dat',status='old')
     do, j=1,N
       read(12,*) ( r(i,j), i=1,3 ) , ( v(i,j), i=1,3 )
@@ -54,7 +55,7 @@ subroutine init()
 
   else
   ! Si no hay configuracion inicial, inicializar con posiciones y velocidades aleatorias
-    print *,"  * Inicializando configuracion aleatoria"
+    if (vb) print *,"  * Inicializando configuracion aleatoria"
     do i = 1, 3
       do j = 1, N
         r(i,j) = uni()*L

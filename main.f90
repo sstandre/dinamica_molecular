@@ -14,16 +14,16 @@ program main
   !   print *, r(:,i)
   ! end do
 
-  print *, "Energia potencial inicial:", Vtot
-  
- 
-  print *, '**************************************************************************'
-  ! Calculo inicial de energia
-  Ecin = sum(v*v)/(2*m)
-  print *, "energia"
-  print *, "  potencial                 cinetica                  total"
-  print *, Vtot, Ecin, Vtot+Ecin
-  print *, '--------------------------------------------------------------------------'
+  if (vb) then
+    print *, "Energia potencial inicial:", Vtot
+    print *, '**************************************************************************'
+    ! Calculo inicial de energia
+    Ecin = sum(v*v)/(2*m)
+    print *, "energia"
+    print *, "  potencial                 cinetica                  total"
+    print *, Vtot, Ecin, Vtot+Ecin
+    print *, '--------------------------------------------------------------------------'
+  end if
 
   open(unit=15,file='output.dat',status='unknown')
   write(15, *) "Paso    Potencial   Cinetica    Total"
@@ -33,12 +33,12 @@ program main
 
     if(mod(istep,nwrite)==0) then
       Ecin = sum(v*v)/(2*m)
-      print *, Vtot, Ecin, Vtot+Ecin
+      if (vb) print *, Vtot, Ecin, Vtot+Ecin
       write(15, *) istep, Vtot, Ecin, Vtot+Ecin
       call write_conf(1)
     end if
   end do
-  print *, '**************************************************************************'
+  if (vb) print *, '**************************************************************************'
   close(15)
 
   ! print *, "posiciones"

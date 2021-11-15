@@ -7,3 +7,4 @@
 1.0      sigma
 1.0      mass
 200      nwrite
+true   verbose
