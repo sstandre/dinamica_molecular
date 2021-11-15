@@ -22,7 +22,6 @@ program main
     r = r + f * (dte**2/(2*m))
     r = modulo(r, L)
     call force(1)
-    write(16,*) Vtot
   end do
 
   print *, '**************************************************************************'
