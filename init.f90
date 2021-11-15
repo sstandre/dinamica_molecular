@@ -6,6 +6,7 @@ subroutine init()
   logical :: es, ms
   integer :: i, j
   character(len=80) :: text
+  real(8) :: dte
 
 ![NO TOCAR] Inicializa generador de número random
   inquire(file='seed.dat',exist=es)
@@ -37,31 +38,39 @@ subroutine init()
   T = T * eps
   allocate(r(3,N),v(3,N),f(3,N))
 
-! Chequear si existe configuracion.dat, y cargarla como configuracion inicial
-  inquire(file='configuracion.dat',exist=ms)
-  if(ms) then
-      print *,"  * Leyendo configuracion inicial de configuracion.dat"
-      open(unit=12,file='configuracion.dat',status='old')
-      do, j=1,N
-        read(12,*) ( r(i,j), i=1,3 ) , ( v(i,j), i=1,3 )
-      end do
-      close(12)
-
-  else
-  ! Si no hay configuracion inicial, inicializar con posiciones y velocidades aleatorias
-      print *,"  * Inicializando configuracion aleatoria"
-      do i = 1, 3
-          do j = 1, N
-            r(i,j) = uni()*L
-            v(i,j) = rnor()*sqrt(T/m)
-          end do
-      end do
-
-  end if
-
   ! Abro archivos e incializo variables en write_conf y force
   call write_conf(0)
   call force(0)
+
+! Chequear si existe configuracion.dat, y cargarla como configuracion inicial
+  inquire(file='configuracion.dat',exist=ms)
+  if(ms) then
+    print *,"  * Leyendo configuracion inicial de configuracion.dat"
+    open(unit=12,file='configuracion.dat',status='old')
+    do, j=1,N
+      read(12,*) ( r(i,j), i=1,3 ) , ( v(i,j), i=1,3 )
+    end do
+    close(12)
+
+  else
+  ! Si no hay configuracion inicial, inicializar con posiciones y velocidades aleatorias
+    print *,"  * Inicializando configuracion aleatoria"
+    do i = 1, 3
+      do j = 1, N
+        r(i,j) = uni()*L
+        v(i,j) = rnor()*sqrt(T/m)
+      end do
+    end do
+
+  ! Hacemos unos pasos de minimizacion de energia, para evitar tener particulas muy cerca
+    dte = 0.01
+    do i=1,200
+      call force(1)
+      r = r + f * (dte**2/(2*m))
+      r = modulo(r, L)
+    end do
+
+  end if
 
  end subroutine
 

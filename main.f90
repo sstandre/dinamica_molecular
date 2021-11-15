@@ -2,8 +2,8 @@ program main
   use globals
   use ziggurat
   implicit none
-  integer :: i, istep
-  real(8) :: dte
+  integer :: istep
+
   
   ! Inicializo posiciones y velocidades y calculo el potencial y las fuerzas
   call init()
@@ -16,14 +16,7 @@ program main
 
   print *, "Energia potencial inicial:", Vtot
   
-  ! Hacemos unos pasos de minimizacion de energia, para evitar tener particulas muy cerca
-  dte = 0.01
-  do i=1,200
-    r = r + f * (dte**2/(2*m))
-    r = modulo(r, L)
-    call force(1)
-  end do
-
+ 
   print *, '**************************************************************************'
   ! Calculo inicial de energia
   Ecin = sum(v*v)/(2*m)
