@@ -18,10 +18,10 @@ subroutine force(mode)
     ! Inicializar acumuladores en 0
     Vtot = 0.0
     f(:,:) = 0.0
-
+    !presion = N*T/(L**3)
     do i = 1, N
       do j = i+1, N
-        dvec = r(:,i) - r(:,j)
+        dvec(:) = r(:,i) - r(:,j)
         ! Por condiciones de contorno, la distancia siempre debe ser -L/2<d<L/2
         dvec = dvec - L*int(2*dvec/L)
         ! Solo necesito distancia^2 para hacer las cuentas
@@ -33,15 +33,18 @@ subroutine force(mode)
           ! Vtot acumula el potencial de todos los pares, con la correccion del radio de corte
           Vtot = Vtot + 4*eps*temp*(temp-1) - Vrc
           ! fij es el vector de fuerza que siente el atomo i debido al j
-          fij =  24*eps*temp*(2*temp-1)/dist2 * dvec
+          fij(:) =  24*eps*temp*(2*temp-1)/dist2 * dvec(:)
           ! Acumulo las fuerzas en el array f
-          f(:,i) = f(:,i) + fij
+          f(:,i) = f(:,i) + fij(:)
           ! El par de reaccion corresponde a la fueza que siente j debido a i
-          f(:,j) = f(:,j) - fij
+          f(:,j) = f(:,j) - fij(:)
+
+          !virial (chequear signo)
+          !presion = presion - sum(dvec*fij)/3
         end if
       end do
     end do
-  
+    
   end select
 
 end subroutine
