@@ -32,6 +32,7 @@ subroutine init()
   read(11,*) eps, text
   read(11,*) sigma, text
   read(11,*) m, text
+  read(11,*) gamma, text
   read(11,*) nwrite, text
   read(11,*) vb, text
   close(11)

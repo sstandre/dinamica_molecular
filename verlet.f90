@@ -10,6 +10,8 @@ subroutine verlet
     v = v + f * (dt/(2*m))
     ! Actualizo el potencial y las fuerzas a t+dt
     call force(1)
+    ! Actualizar las fuerzas con el termostato de Langevin (!!!!, tengo v intermedia!)
+    call lang()
     ! Velocidad "final" (en t+dt)
     v = v + f *(dt/(2*m))
 
