@@ -3,14 +3,14 @@ subroutine lang
     use ziggurat
     implicit none
 
-    real(8) :: Fr(3)
+    real(8) :: Fr
     integer :: i, j
     
     do i=1,N
         do j=1,3
-            Fr(j) = rnor()*sqrt(2*gamma*m*T/dt)
+            Fr = rnor()*sqrt(2*gamma*m*T/dt)
+            f(j,i) = f(j,i) - gamma*v(j,i) + Fr
         end do
-        f(:,i) = f(:,i) - gamma*v(:,i) + Fr(:)
     end do
 
 end subroutine
