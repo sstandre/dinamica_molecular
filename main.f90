@@ -26,7 +26,7 @@ program main
   end if
 
   open(unit=15,file='output.dat',status='unknown')
-  write(15, *) "Paso    Potencial   Cinetica    Total"
+  write(15, *) "Paso    Potencial   Cinetica    Total     Presion"
   do istep = 1, nstep
     ! Las nuevas posiciones y velocidades se calculan mediante Verlet
     call verlet()
@@ -34,7 +34,7 @@ program main
     if(mod(istep,nwrite)==0) then
       Ecin = sum(v*v)/(2*m)
       if (vb) print *, Vtot, Ecin, Vtot+Ecin
-      write(15, *) istep, Vtot, Ecin, Vtot+Ecin
+      write(15, *) istep, Vtot, Ecin, Vtot+Ecin, presion
       call write_conf(1)
     end if
   end do

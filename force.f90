@@ -18,7 +18,7 @@ subroutine force(mode)
     ! Inicializar acumuladores en 0
     Vtot = 0.0
     f(:,:) = 0.0
-    !presion = N*T/(L**3)
+    presion = N*T/(L**3)
     do i = 1, N
       do j = i+1, N
         dvec(:) = r(:,i) - r(:,j)
@@ -40,7 +40,7 @@ subroutine force(mode)
           f(:,j) = f(:,j) - fij(:)
 
           !virial (chequear signo)
-          !presion = presion - sum(dvec*fij)/3
+          presion = presion - sum(dvec*fij)/3
         end if
       end do
     end do

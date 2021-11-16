@@ -12,7 +12,9 @@ keys = [
     'eps',
     'sigma',
     'm',
+    'gamma',
     'nwrite',
+    'vb',
     ]
 g = globals()
 
