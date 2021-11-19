@@ -1,11 +1,11 @@
 200      N     (atoms)
 10.0     L     (box size)
-1.5      Temperature
+1.1      Temperature
 0.001    dt    (timestep)
-50000    nstep 
+100000    nstep 
 1.0      epsilon
 1.0      sigma
 1.0      mass
 0.5     gamma
-200      nwrite
+1000      nwrite
 true   verbose
