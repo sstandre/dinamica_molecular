@@ -49,7 +49,7 @@ subroutine init()
   if(ms) then
     if (vb) print *,"  * Leyendo configuracion inicial de configuracion.dat"
     open(unit=12,file='configuracion.dat',status='old')
-    do, j=1,N
+    do j=1,N
       read(12,*) ( r(i,j), i=1,3 ) , ( v(i,j), i=1,3 )
     end do
     close(12)
@@ -69,7 +69,7 @@ subroutine init()
   ! Hacemos unos pasos de minimizacion de energia, para evitar tener particulas muy cerca
     dte = 0.001
     do i=1,500
-      if ((mod(i,100)==0).and.vb) then
+      if (vb.and.(mod(i,100)==0)) then
         print *, Vtot
       end if
       call force(1)

@@ -2,9 +2,9 @@ subroutine force(mode)
   use globals
   implicit none
   integer, intent(in) :: mode
-  integer :: i, j, Npar
+  integer :: i, j
   real(8) :: dvec(3), fij(3)
-  real(8) :: dist2, temp, Vol
+  real(8) :: dist2, temp
 
   select case(mode)
   case(0)   ! Inicializar radio de corte y potencial
@@ -16,9 +16,6 @@ subroutine force(mode)
 
   case(1)   ! Loop sobre pares de atomos
     
-    Vol = L**3        ! volumen
-    Npar = N*(N-1)    ! numero de pares
-
     ! Inicializar acumuladores en 0
     Vtot = 0.0
     f(:,:) = 0.0
@@ -45,12 +42,12 @@ subroutine force(mode)
           f(:,j) = f(:,j) - fij(:)
 
           !virial (chequear signo)
-          presion = presion - sum(dvec*fij)/(3*Vol*Npar)
+          presion = presion + sum(dvec*fij)
         end if
       end do
     end do
     
-    presion = presion + N*T/Vol
+    presion = (presion/3 + N*T)/L**3
 
   end select
 

@@ -27,10 +27,11 @@ print(f'Energía potencial media: {Epot.mean():.2f} ± {Epot.std():.2f}')
 print(f'Energía cinética media: {Ecin.mean():.2f} ± {Ecin.std():.2f}')
 print(f'Energía total media: {Etot.mean():.2f} ± {Etot.std():.2f}')
 
+print(f'Densidad: {N/L**3:.3f}')
 print(f'Temperatura input: {T}')
 Treal = Ecin.mean()*2/3/N
 print(f'Temperatura real: {Treal:.2f}')
-print(f'Presión media: {presion.mean():.2f} ± {presion.std():.2f}')
+print(f'Presión media: {presion.mean():.4f} ± {presion.std():.4f}')
 
 
 
