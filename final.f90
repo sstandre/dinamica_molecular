@@ -11,7 +11,7 @@ subroutine final()
     ! ! Guardar la ultima configuracion en un archivo
     open(unit=12,file='configuracion.dat',action='write',status='replace')
       
-    do, j=1,N
+    do j=1,N
       write(12,*) ( r(i,j), i=1,3 ) , ( v(i,j), i=1,3 )
     end do
  

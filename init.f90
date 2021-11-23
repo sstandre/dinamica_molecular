@@ -64,9 +64,14 @@ subroutine init()
       end do
     end do
 
+    call force(1)
+    if (vb) print *, "Energia potencial inicial:", Vtot
   ! Hacemos unos pasos de minimizacion de energia, para evitar tener particulas muy cerca
-    dte = 0.01
-    do i=1,200
+    dte = 0.001
+    do i=1,500
+      if ((mod(i,100)==0).and.vb) then
+        print *, Vtot
+      end if
       call force(1)
       r = r + f * (dte**2/(2*m))
       r = modulo(r, L)

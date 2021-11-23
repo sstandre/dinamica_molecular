@@ -15,7 +15,6 @@ program main
   ! end do
 
   if (vb) then
-    print *, "Energia potencial inicial:", Vtot
     print *, '**************************************************************************'
     ! Calculo inicial de energia
     Ecin = sum(v*v)/(2*m)
