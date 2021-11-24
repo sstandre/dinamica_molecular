@@ -27,8 +27,8 @@ subroutine init()
   read(11,*) N, text
   read(11,*) L, text
   read(11,*) T, text
-  read(11,*) dt, text
   read(11,*) nstep, text
+  read(11,*) dt, text
   read(11,*) eps, text
   read(11,*) sigma, text
   read(11,*) m, text

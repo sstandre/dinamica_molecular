@@ -1,8 +1,8 @@
 200      N     (atoms)
 15.874    L     (box size)
 1.1      Temperature
-0.001    dt    (timestep)
 100000    nstep 
+0.001    dt    (timestep)
 1.0      epsilon
 1.0      sigma
 1.0      mass
