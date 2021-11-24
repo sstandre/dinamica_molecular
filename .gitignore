@@ -3,6 +3,7 @@
 *.vtf
 dinamica
 simple/
+data/
 seed.dat
 output.dat
 configuracion.dat
