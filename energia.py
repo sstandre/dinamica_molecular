@@ -21,7 +21,11 @@ with open('input.dat') as f:
     for key, line in zip(keys, f.readlines()):
         g[key] = float(line.split()[0])
 
-steps, Epot, Ecin, Etot, presion= np.loadtxt('output.dat', skiprows=1, unpack=True)
+
+folder = '.'
+# folder = './data/0.418_dens/1.1_temp/01_JOB'
+
+steps, Epot, Ecin, Etot, presion= np.loadtxt(folder+'/output.dat', skiprows=1, unpack=True)
 
 print(f'Energía potencial media: {Epot.mean():.2f} ± {Epot.std():.2f}')
 print(f'Energía cinética media: {Ecin.mean():.2f} ± {Ecin.std():.2f}')
@@ -43,5 +47,7 @@ plt.legend(loc=(0.1, 0.3))
 
 plt.figure()
 plt.plot(steps*dt, presion)
-plt.ylim(0, presion.max()*1.1)
+plt.xlabel('Tiempo')
+plt.ylabel('Presión')
+# plt.ylim(0, presion.max()*1.1)
 plt.show()
