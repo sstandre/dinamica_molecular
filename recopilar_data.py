@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import sys
 import os
 from statistics import mean, stdev
 
@@ -24,9 +23,9 @@ def write_aggregate(data):
         next(file) # skip headers
         zipped = zip(*(map(float, line.split()[1:]) for line in file.readlines()))
 
-    aggregated = [x for values in zipped for x in (mean(values), stdev(values))]       
+    aggregated = [str(x) for values in zipped for x in (mean(values), stdev(values))]       
 
-    data = '\t'.join(data+aggregated)
+    data = '\t'.join(data+aggregated)+'\n'
     datafile.write(data)
 
 
@@ -34,20 +33,19 @@ HEADER = '\t'.join((
     'densidad',
     'temperatura',
     'job',
-    'potencial mean',
-    'potencial std',
-    'cinetica mean',
-    'cinetica std',
-    'total mean',
-    'total std',
-    'presion mean', 
-    'presion std', 
+    'potencial_mean',
+    'potencial_std',
+    'cinetica_mean',
+    'cinetica_std',
+    'total_mean',
+    'total_std',
+    'presion_mean', 
+    'presion_std', 
     ))+'\n'
 
 OUTFILE = 'alldata.dat'
 DATAFOLDER = 'data'
 NAMES = ['dens', 'temp', 'JOB']
-
 
 with open(OUTFILE, 'w') as datafile:
     datafile.write(HEADER)
