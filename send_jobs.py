@@ -18,13 +18,14 @@ constants = {
 N           = 200
 steps       = 500000
 steps_term  = 100000
-temperatura = 1.1
-
+# densidades = [0.3]
 densidades = [
     0.001, 0.01, 0.1,
     *[0.1 + 0.7/11*i for i in range(1, 11)],
     0.8, 0.9, 1.0
     ]
+# temperaturas = [0.7 + 0.7/9*i for i in range(10)]
+temperaturas = [0.9, 2.0]
 
 data_files = ['input.dat', 'output.dat', 'configuracion.dat', 'movie.vtf']
 SKIP_EXISTING = True
@@ -59,33 +60,33 @@ def main(args):
             return 1
         
         for d in densidades:
-            tempdir = f'data/{d:.3f}_dens/{temperatura:.2}_temp'
-            
-            print('*'*30)
-            print(f'Corrida a densidad={d:.3f}, T={temperatura:.2}')
-
             if os.path.exists('configuracion.dat'):
-                print('Quitando configuracion.dat para nueva densidad.')
-                os.remove('configuracion.dat')
+                    print('Quitando configuracion.dat para nueva densidad.')
+                    os.remove('configuracion.dat')
+            
+            for temp in temperaturas:
+                tempdir = f'data/{d:.3f}_dens/{temp:.2f}_temp'
+                print('*'*30)
+                print(f'Corrida a densidad={d:.3f}, T={temp:.2f}')
 
-            # corrida de termalizacion
-            print("Termalizacion")
-            run_job(d, steps_term, temperatura, N, constants)
-                
-            for job in range(1,njobs+1):
-                dirname = f'{tempdir}/{job:02}_JOB'
-                if os.path.exists(dirname) and SKIP_EXISTING:
-                    print(f'El directorio {tempdir} ya existe, continuando con el siguiente.')
-                    continue
-                elif not os.path.exists(dirname):
-                    os.makedirs(dirname)
-                
-                print(f'Inciando trabajo {job}')
-                # corrida de produccion
-                run_job(d, steps, temperatura, N, constants)
-                
-                for file in data_files:
-                    copy(file, dirname)
+                # corrida de termalizacion
+                print("Termalizacion")
+                run_job(d, steps_term, temp, N, constants)
+                    
+                for job in range(1,njobs+1):                   
+                    dirname = f'{tempdir}/{job:02}_JOB'
+                    if os.path.exists(dirname) and SKIP_EXISTING:
+                        print(f'El directorio {tempdir} ya existe, continuando con el siguiente.')
+                        continue
+                    elif not os.path.exists(dirname):
+                        os.makedirs(dirname)
+                    
+                    print(f'Inciando trabajo {job}')
+                    # corrida de produccion
+                    run_job(d, steps, temp, N, constants)
+                    
+                    for file in data_files:
+                        copy(file, dirname)
 
         print(f'Todos los trabajos finalizados')
 
