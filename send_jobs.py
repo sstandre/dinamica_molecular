@@ -18,14 +18,16 @@ constants = {
 N           = 200
 steps       = 500000
 steps_term  = 100000
-# densidades = [0.3]
-densidades = [
-    0.001, 0.01, 0.1,
-    *[0.1 + 0.7/11*i for i in range(1, 11)],
-    0.8, 0.9, 1.0
-    ]
-# temperaturas = [0.7 + 0.7/9*i for i in range(10)]
-temperaturas = [0.9, 2.0]
+
+densidades = [0.3]
+temperaturas = [0.7 + 0.7/9*i for i in range(10)]
+
+# densidades = [
+#     0.001, 0.01, 0.1,
+#     *[0.1 + 0.7/11*i for i in range(1, 11)],
+#     0.8, 0.9, 1.0
+#     ]
+# temperaturas = [0.9, 2.0]
 
 data_files = ['input.dat', 'output.dat', 'configuracion.dat', 'movie.vtf']
 SKIP_EXISTING = True
