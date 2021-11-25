@@ -6,7 +6,7 @@ subroutine init()
   logical :: es, ms
   integer :: i, j
   character(len=80) :: text
-  real(8) :: dte
+  real(8) :: dte, sv, tmp
 
 ![NO TOCAR] Inicializa generador de número random
   inquire(file='seed.dat',exist=es)
@@ -54,27 +54,32 @@ subroutine init()
     end do
     close(12)
 
+  ! Calcular fuerzas por primera vez
+    call force(1)
+
   else
   ! Si no hay configuracion inicial, inicializar con posiciones y velocidades aleatorias
+    sv = sqrt(T/m)
     if (vb) print *,"  * Inicializando configuracion aleatoria"
     do i = 1, 3
       do j = 1, N
         r(i,j) = uni()*L
-        v(i,j) = rnor()*sqrt(T/m)
+        v(i,j) = rnor()*sv
       end do
     end do
 
-    call force(1)
-    if (vb) print *, "Energia potencial inicial:", Vtot
+    if (vb) print *, "Energia potencial:"
   ! Hacemos unos pasos de minimizacion de energia, para evitar tener particulas muy cerca
     dte = 0.001
+    tmp = dte**2/(2*m)
     do i=1,500
-      if (vb.and.(mod(i,100)==0)) then
-        print *, Vtot
-      end if
+
       call force(1)
-      r = r + f * (dte**2/(2*m))
+      if (vb.and.(mod(i,100)==0)) print *, Vtot
+
+      r = r + f * tmp
       r = modulo(r, L)
+
     end do
 
   end if

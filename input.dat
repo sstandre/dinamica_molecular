@@ -1,6 +1,6 @@
 200       N (atoms)
-8.736     L (box size)
-1.40      Temperature
+10        L (box size)
+1.10      Temperature
 100000    nstep
 0.001     dt
 1.0       epsilon
@@ -8,4 +8,4 @@
 1.0       mass
 0.5       gamma
 1000      nwrite
-false     verbose
+true     verbose
