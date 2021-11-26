@@ -17,7 +17,8 @@ program main
   if (vb) then
     print *, '**************************************************************************'
     ! Calculo inicial de energia
-    Ecin = sum(v*v)/(2*m)
+    Ecin = sum(v*v)/(2*m*N)
+    Vtot = Vtot / N
     print *, "energia"
     print *, "  potencial                 cinetica                  total"
     print *, Vtot, Ecin, Vtot+Ecin
@@ -31,7 +32,8 @@ program main
     call verlet()
 
     if(mod(istep,nwrite)==0) then
-      Ecin = sum(v*v)/(2*m)
+      Ecin = sum(v*v)/(2*m*N)
+      Vtot = Vtot / N
       if (vb) print *, Vtot, Ecin, Vtot+Ecin
       write(15, *) istep, Vtot, Ecin, Vtot+Ecin, presion
       call write_conf(1)
