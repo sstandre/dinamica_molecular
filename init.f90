@@ -6,7 +6,7 @@ subroutine init()
   logical :: es, ms
   integer :: i, j
   character(len=80) :: text
-  real(8) :: dte, sv, tmp
+  real(8) :: dtm, sv, tmp
 
 ![NO TOCAR] Inicializa generador de número random
   inquire(file='seed.dat',exist=es)
@@ -70,8 +70,8 @@ subroutine init()
 
     if (vb) print *, "Energia potencial:"
   ! Hacemos unos pasos de minimizacion de energia, para evitar tener particulas muy cerca
-    dte = 0.001
-    tmp = dte**2/(2*m)
+    dtm = 0.001
+    tmp = dtm**2/(2*m)
     do i=1,500
 
       call force(1)

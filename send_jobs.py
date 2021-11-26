@@ -16,10 +16,10 @@ constants = {
     }
 
 N           = 200
-steps       = 500000
-steps_term  = 100000
+steps       = 500_000
+steps_term  = 100_000
 
-densidades = [0.3]
+densidades = [0.9]
 temperaturas = [0.7 + 0.7/9*i for i in range(10)]
 
 # densidades = [
