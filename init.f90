@@ -54,9 +54,6 @@ subroutine init()
     end do
     close(12)
 
-  ! Calcular fuerzas por primera vez
-    call force(1)
-
   else
   ! Si no hay configuracion inicial, inicializar con posiciones y velocidades aleatorias
     sv = sqrt(T/m)

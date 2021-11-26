@@ -1,5 +1,6 @@
 subroutine force(mode)
   use globals
+#include "control.h" 
   implicit none
   integer, intent(in) :: mode
   integer :: i, j
