@@ -19,8 +19,11 @@ N           = 200
 steps       = 500_000
 steps_term  = 100_000
 
-densidades = [0.9]
-temperaturas = [0.7 + 0.7/9*i for i in range(10)]
+densidades = [1.0]
+temperaturas = [1.10]
+
+# densidades = [0.9]
+# temperaturas = [0.7 + 0.7/9*i for i in range(10)]
 
 # densidades = [
 #     0.001, 0.01, 0.1,
