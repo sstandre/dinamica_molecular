@@ -1,12 +1,15 @@
 subroutine init()
   use globals
   use ziggurat
+#include "control.h"
   implicit none
-
   logical :: es, ms
   integer :: i, j
   character(len=80) :: text
   real(8) :: dtm, sv, tmp
+#ifdef GDR
+  integer :: k
+#endif
 
 ![NO TOCAR] Inicializa generador de número random
   inquire(file='seed.dat',exist=es)
@@ -80,6 +83,16 @@ subroutine init()
     end do
 
   end if
+
+#ifdef GDR
+  n_bins = int(L*30)
+  allocate(cuentas(1:n_bins), bines(0:n_bins))
+  cuentas = 0.0
+  bines(0) = 0.0
+  do k = 1, n_bins
+    bines(k) = k*dble(L)/dble(n_bins)
+  end do
+#endif
 
  end subroutine
 

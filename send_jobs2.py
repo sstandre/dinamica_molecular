@@ -12,7 +12,7 @@ constants = {
     'sigma'   : '1.0',
     'mass'    : '1.0',
     'gamma'   : '0.5',
-    'nwrite'  : '500',
+    'nwrite'  : '1000',
     'verbose' : 'false',
     }
 
@@ -20,8 +20,8 @@ N           = 200
 steps       = 500_000
 steps_term  = 100_000
 
-densidades = [0.001, 0.3, 0.8]
-temperaturas = [1.10]
+densidades = [0.3]
+temperaturas = [1.40]
 # densidades = [0.9]
 # temperaturas = [0.7 + 0.7/9*i for i in range(10)]
 
@@ -97,7 +97,7 @@ def main(args):
                     for file in data_files:
                         copy(file, dirname)
                     
-                print('-'*40)
+                    print('-'*40)
 
         print(f'Todos los trabajos finalizados')
 

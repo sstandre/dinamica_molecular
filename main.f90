@@ -3,9 +3,11 @@ program main
   use ziggurat
 #include "control.h"
   implicit none
-  integer :: istep, i,j,k
+  integer :: istep
+#ifdef GDR
+  integer :: i,j,k
   real(8) :: d, dvec(3)
-
+#endif
   
   ! Inicializo posiciones y velocidades y calculo el potencial y las fuerzas
   call init()
@@ -17,14 +19,6 @@ program main
   ! end do
 
   ! inicializar los bines con las distancias de cada cascara
-#ifdef GDR
-    cuentas = 0.0
-    bines(0) = 0.0
-    do k = 1, 200
-      bines(k) = k*dble(L)/200.0
-    end do
-#endif
-
 
   if (vb) then
     print *, '**************************************************************************'
@@ -59,7 +53,7 @@ do i = 1, N-1
       dvec = dvec - L*int(2*dvec/L)
       d = sqrt(sum(dvec*dvec))
       ! Contar la distancia en el primer bin que sea mayor a la distancia
-      do k = 1, 200
+      do k = 1, n_bins
         if (d < bines(k)) then
           cuentas(k) = cuentas(k) + 2
           exit

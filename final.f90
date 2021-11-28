@@ -4,9 +4,11 @@ subroutine final()
 #include "control.h"
     implicit none
 
-    integer :: i, j, k
+    integer :: i, j
+#ifdef GDR    
+    integer :: k
     real(8) :: dens_casc
-  
+#endif
     ! Cerrar el archivo de configuraciones
     call write_conf(2)
 
@@ -22,11 +24,11 @@ subroutine final()
     !Guardar funcion g(r) normalizada
 #ifdef GDR
     open(unit=13,file='correlacion.dat',action='write',status='unknown')
-    do k = 1, 200
+    do k = 1, n_bins
       dens_casc = 4.0/3.0*3.141592*(bines(k)**3-bines(k-1)**3)*N/L**3
-      write(13,*) bines(k), cuentas(k)/(dens_casc*nstep)
+      write(13,*) bines(k), cuentas(k)/(N*dens_casc*nstep/nwrite)
     end do
-close(13)
+    close(13)
 #endif
 
 
