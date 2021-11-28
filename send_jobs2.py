@@ -12,7 +12,7 @@ constants = {
     'sigma'   : '1.0',
     'mass'    : '1.0',
     'gamma'   : '0.5',
-    'nwrite'  : '1000',
+    'nwrite'  : '500',
     'verbose' : 'false',
     }
 
@@ -97,7 +97,7 @@ def main(args):
                     for file in data_files:
                         copy(file, dirname)
                     
-                    print('-'*40)
+                print('-'*40)
 
         print(f'Todos los trabajos finalizados')
 

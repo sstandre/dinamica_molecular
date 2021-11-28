@@ -8,4 +8,5 @@ data/
 seed.dat
 output.dat
 configuracion.dat
+correlacion.dat
 __pycache__
