@@ -2,6 +2,7 @@
 *.mod
 *.vtf
 dinamica
+dinamica_gdr
 simple/
 data/
 seed.dat

@@ -4,6 +4,7 @@ import sys
 import os
 from subprocess import call
 from shutil import copy
+from pathlib import Path
 
 constants = {
     'dt'      : '0.001',
@@ -19,9 +20,8 @@ N           = 200
 steps       = 500_000
 steps_term  = 100_000
 
-densidades = [1.0]
+densidades = [0.001, 0.3, 0.8]
 temperaturas = [1.10]
-
 # densidades = [0.9]
 # temperaturas = [0.7 + 0.7/9*i for i in range(10)]
 
@@ -32,8 +32,12 @@ temperaturas = [1.10]
 #     ]
 # temperaturas = [0.9, 2.0]
 
-data_files = ['input.dat', 'output.dat', 'configuracion.dat', 'movie.vtf']
-SKIP_EXISTING = True
+data_files = [
+    'input.dat', 'output.dat', 'configuracion.dat', 'movie.vtf', 'correlacion.dat'
+    ]
+data_folder = Path('./data')
+EXE = './dinamica_gdr'
+SKIP_EXISTING = False
 
 
 def run_job(densidad, steps, temp, N, constants):
@@ -49,13 +53,13 @@ def run_job(densidad, steps, temp, N, constants):
         for name, value in constants.items():
             infile.write(f'{value:<10}{name}\n')
 
-    call('./dinamica')
+    call(EXE)
 
 
 def main(args):
     
     if len(args) != 2:
-        print('Modo de uso: ./send_jobs.py N_JOBS')
+        print(f'Modo de uso: {Path(__file__).name} N_JOBS')
         return 1
     else:
         try:
@@ -70,8 +74,8 @@ def main(args):
                     os.remove('configuracion.dat')
             
             for temp in temperaturas:
-                tempdir = f'data/{d:.3f}_dens/{temp:.2f}_temp'
-                print('*'*30)
+                tempdir = data_folder / f'{d:.3f}_dens' / f'{temp:.2f}_temp'
+                print('*'*40)
                 print(f'Corrida a densidad={d:.3f}, T={temp:.2f}')
 
                 # corrida de termalizacion
@@ -79,7 +83,7 @@ def main(args):
                 run_job(d, steps_term, temp, N, constants)
                     
                 for job in range(1,njobs+1):                   
-                    dirname = f'{tempdir}/{job:02}_JOB'
+                    dirname = tempdir / f'{job:02}_JOB'
                     if os.path.exists(dirname) and SKIP_EXISTING:
                         print(f'El directorio {tempdir} ya existe, continuando con el siguiente.')
                         continue
@@ -92,6 +96,8 @@ def main(args):
                     
                     for file in data_files:
                         copy(file, dirname)
+                    
+                    print('-'*40)
 
         print(f'Todos los trabajos finalizados')
 
