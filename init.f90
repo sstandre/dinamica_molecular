@@ -11,20 +11,6 @@ subroutine init()
   integer :: k
 #endif
 
-![NO TOCAR] Inicializa generador de número random
-  inquire(file='seed.dat',exist=es)
-  if(es) then
-      open(unit=10,file='seed.dat',status='old')
-      read(10,*) seed
-      close(10)
-      ! print *,"  * Leyendo semilla de archivo seed.dat"
-  else
-      seed = 24583490
-  end if
-
-  call zigset(seed)
-![FIN NO TOCAR]    
-
 !   Leer variables del archivo input.dat y alocar variables
   open(unit=11,file='input.dat',action='read',status='old')
   read(11,*) N, text
@@ -42,6 +28,20 @@ subroutine init()
 
   T = T * eps
   allocate(r(3,N),v(3,N),f(3,N))
+
+![NO TOCAR] Inicializa generador de número random
+  inquire(file='seed.dat',exist=es)
+  if(es) then
+      open(unit=10,file='seed.dat',status='old')
+      read(10,*) seed
+      close(10)
+      ! print *,"  * Leyendo semilla de archivo seed.dat"
+  else
+      seed = 24583490
+  end if
+
+  call zigset(seed)
+![FIN NO TOCAR]   
 
   ! Abro archivos e incializo variables en write_conf y force
   call write_conf(0)
