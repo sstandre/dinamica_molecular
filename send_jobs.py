@@ -20,8 +20,8 @@ N           = 200
 steps       = 500_000
 steps_term  = 100_000
 
-densidades = [0.001, 0.3, 0.8]
-temperaturas = [1.10]
+densidades = [0.9, 0.95, 1.0, 1.05, 1.10]
+temperaturas = [1.3]
 # densidades = [0.9]
 # temperaturas = [0.7 + 0.7/9*i for i in range(10)]
 
@@ -33,11 +33,11 @@ temperaturas = [1.10]
 # temperaturas = [0.9, 2.0]
 
 data_files = [
-    'input.dat', 'output.dat', 'configuracion.dat', 'movie.vtf', 'correlacion.dat'
+    'input.dat', 'output.dat', 'configuracion.dat', 'movie.vtf', #'correlacion.dat'
     ]
 data_folder = Path('./data')
-EXE = './dinamica_gdr'
-SKIP_EXISTING = False
+EXE = './dinamica'
+SKIP_EXISTING = True
 
 
 def run_job(densidad, steps, temp, N, constants):
@@ -85,7 +85,7 @@ def main(args):
                 for job in range(1,njobs+1):                   
                     dirname = tempdir / f'{job:02}_JOB'
                     if os.path.exists(dirname) and SKIP_EXISTING:
-                        print(f'El directorio {tempdir} ya existe, continuando con el siguiente.')
+                        print(f'El directorio {dirname} ya existe, continuando con el siguiente.')
                         continue
                     elif not os.path.exists(dirname):
                         os.makedirs(dirname)
