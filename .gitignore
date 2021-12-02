@@ -10,3 +10,4 @@ output.dat
 configuracion.dat
 correlacion.dat
 __pycache__
+.venv/
