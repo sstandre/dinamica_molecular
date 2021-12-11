@@ -20,8 +20,8 @@ N           = 200
 steps       = 500_000
 steps_term  = 100_000
 
-densidades = [0.9, 0.95, 1.0, 1.05, 1.10]
-temperaturas = [1.3]
+densidades = [0.3]
+temperaturas = [0.7, 0.93]
 # densidades = [0.9]
 # temperaturas = [0.7 + 0.7/9*i for i in range(10)]
 
@@ -33,10 +33,10 @@ temperaturas = [1.3]
 # temperaturas = [0.9, 2.0]
 
 data_files = [
-    'input.dat', 'output.dat', 'configuracion.dat', 'movie.vtf', #'correlacion.dat'
+    'input.dat', 'output.dat', 'configuracion.dat', 'movie.vtf', 'correlacion.dat'
     ]
 data_folder = Path('./data')
-EXE = './dinamica'
+EXE = './dinamica_gdr'
 SKIP_EXISTING = True
 
 

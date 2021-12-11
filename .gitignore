@@ -11,3 +11,4 @@ configuracion.dat
 correlacion.dat
 __pycache__
 .venv/
+*.tar.gz
